@@ -5,7 +5,6 @@
 //   ];
 
 const graphPositions = [
-    [50, 100],
     [150, 200],
     [250, 300],
     [350, 400],
@@ -18,20 +17,17 @@ export function BuildOperatorGraph (queryMetaData) {
     let nodes = []
     let counter = 0
 
-    queryMetaData.fromTable.forEach((el, index)=> {
-        //0
-        nodes.push({
-            id: index.toString(),
-            data: { label: el },
-            position: {
-                x: graphPositions[index][0],
-                y: graphPositions[index][1]
-            }
-        })
-        counter++
+    // From Table Node
+    nodes.push({
+        id: '0',
+        data: { label: queryMetaData.fromTable },
+        position: {
+            x: 50,
+            y: 100
+        }
     })
 
-    if (queryMetaData.joinTable !== '') {
+    if ('joinTable' in queryMetaData) {
         //1
         nodes.push({
             id: (nodes.length).toString(),
@@ -46,7 +42,7 @@ export function BuildOperatorGraph (queryMetaData) {
     //Get Select Operator
     nodes.push({
         id: (nodes.length).toString(),
-        data: {label: queryMetaData.columns[0] === '*'? queryMetaData.statement+" all": "select " + queryMetaData.conditional},
+        data: {label: queryMetaData.columns[0] === '*' | queryMetaData.conditional === undefined ? queryMetaData.statement+" all": "select " + queryMetaData.conditional},
         position: {
             x: graphPositions[counter][0],
             y: graphPositions[counter][1]
@@ -76,7 +72,7 @@ export function BuildOperatorGraph (queryMetaData) {
 
     
 
-    if(queryMetaData.joinTable !== '') {
+    if('joinTable' in queryMetaData) {
         nodes.push({ 
             id: 'e0-2', source: '0', target: '2', animated: false,
         })
@@ -93,7 +89,7 @@ export function BuildOperatorGraph (queryMetaData) {
             id: 'e0-1', source: '0', target: '1', animated: false,
         })
         nodes.push({ 
-            id: 'e1-3', source: '1', target: '3', animated: false,
+            id: 'e1-2', source: '1', target: '2', animated: false,
         })
     }
 

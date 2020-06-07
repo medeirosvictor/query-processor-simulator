@@ -11,7 +11,7 @@ export function QueryStringValidate(query) {
 export function QueryTokenValidate(queryMetaData) {
     let validStatement = queryMetaData.statement === 'select' || queryMetaData.statement === 'SELECT' ? true : false
     let validColumn = queryMetaData.columns.length > 0 ? true : false
-    let validTable = queryMetaData.fromTable.length > 0 ? true : false
+    let validTable = queryMetaData.fromTable !== '' ? true : false
 
     if (validStatement && validColumn && validTable) {
         return true

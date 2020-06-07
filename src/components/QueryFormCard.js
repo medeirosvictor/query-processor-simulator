@@ -62,7 +62,6 @@ export default function QueryFormCard() {
             queryMetaData = QueryParse(queryString)
             if (QueryTokenValidate(queryMetaData)) {
                 queryMetaData.elements = BuildOperatorGraph(queryMetaData)
-                debugger
                 dispatch(LoadQueryMetaData(queryMetaData))
             } else {
                 setQueryErrorText('Query Invalid')

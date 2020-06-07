@@ -15,7 +15,6 @@ export default function GraphOperatorSection() {
     };
 
     if (isRunning) {
-        debugger
         return (
             <ReactFlow elements={simulationState.queryMetaData.elements} style={graphStyles} />
         )

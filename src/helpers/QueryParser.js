@@ -12,13 +12,13 @@ export function QueryParse (query) {
 
     queryTokens = query.match(/[^\s,;]+|;/gm)
 
-    if (!query.includes("where")) {
+    if (!query.includes("where") && !query.includes("join")) {
         queryMetaData = QuerySimulationTreatment(query, queryTokens, "noCondition")
     } else {
         if (query.includes("join")) {
             queryMetaData = QuerySimulationTreatment(query, queryTokens, "withJoin")
         } else {
-            queryMetaData = QuerySimulationTreatment(query, queryTokens, "withWhereSingleTable")
+            queryMetaData = QuerySimulationTreatment(query, queryTokens, "withWhere")
         }
     }
 
@@ -27,36 +27,31 @@ export function QueryParse (query) {
 
 export function QuerySimulationTreatment (query, queryTokens, queryType) {
     let queryMetaData = {}
-
+    //Get query
     queryMetaData.query = query
-    [queryTokens, queryMetaData] = getStatementTokens(queryTokens, queryMetaData)
-    [queryTokens, queryMetaData] = getColumnTokens(queryTokens, queryMetaData)
 
-    debugger
-    if (queryType === "noCondition") {
-        //Get Tables
-        for (let j = 0; j < queryTokens.length; j++) {
-            if (queryTokens[j+1]) {
-                queryMetaData.fromTable.push(queryTokens[j]+" "+queryTokens[j+1])
-                j++
-            } else {
-                queryMetaData.fromTable.push(queryTokens[j])
-            }
+    //Get statement
+    queryMetaData.statement = queryTokens[0]
+    queryTokens = queryTokens.slice(1)
+
+    //Get Columns
+    queryMetaData.columns = []
+    for (let i = 0; i < queryTokens.length; i++) {
+        if (queryTokens[i] !== "from") {
+            queryMetaData.columns.push(queryTokens[i])
+        } else {
+            queryTokens = queryTokens.slice(i+1)
+            break
         }
     }
-    else if (queryType === "withWhereSingleTable") {
-        for (let i = 0; i < queryTokens.length; i++) {
-            if (queryTokens[i] !== "from") {
-                queryMetaData.columns.push(queryTokens[i])
-            } else {
-                queryTokens = queryTokens.slice(i+1)
-                break
-            }
-        }
 
+    if (queryType === "noCondition") {
+        queryMetaData.fromTable = queryTokens[0]
+    }
+    else if (queryType === "withWhere") {
         for (let j = 0; j < queryTokens.length; j++) {
             if (queryTokens[j+1] === 'where') {
-                queryMetaData.fromTable.push(queryTokens[j])
+                queryMetaData.fromTable = queryTokens[j]
                 queryTokens = queryTokens.slice(j+2)
                 break
             } else {
@@ -66,6 +61,7 @@ export function QuerySimulationTreatment (query, queryTokens, queryType) {
         }
 
         //Get conditional args
+        queryMetaData.conditional = ''
         for (let j = 0; j < queryTokens.length; j++) {
             if (queryMetaData.conditional === '') {
                 queryMetaData.conditional = queryMetaData.conditional + queryTokens[j]
@@ -74,13 +70,13 @@ export function QuerySimulationTreatment (query, queryTokens, queryType) {
             }
         }
     } else if (queryType === "withJoin") {
-        [queryTokens, queryMetaData] = getColumnTokens(queryTokens, queryMetaData)
-
-        queryMetaData.fromTable.push(queryTokens[0])
+        queryMetaData.fromTable = queryTokens[0]
         queryTokens = queryTokens.slice(2)
         queryMetaData.joinTable = queryTokens[0]
         queryTokens = queryTokens.slice(1)
 
+        //Get On condition from JOIN
+        queryMetaData.on = ''
         for (let j = 0; j < queryTokens.length; j++) {
             if (queryTokens[j] !== 'where') {
                 if (queryTokens[j] !== 'on') {
@@ -96,40 +92,17 @@ export function QuerySimulationTreatment (query, queryTokens, queryType) {
             }
         }
 
-        for (let j = 0; j < queryTokens.length; j++) {
-            if (queryMetaData.conditional === '') {
-                queryMetaData.conditional = queryMetaData.conditional + queryTokens[j]
-            } else {
-                queryMetaData.conditional = queryMetaData.conditional + " " + queryTokens[j]
+        if (query.includes("where")) {
+            queryMetaData.conditional = ''
+            for (let j = 0; j < queryTokens.length; j++) {
+                if (queryMetaData.conditional === '') {
+                    queryMetaData.conditional = queryMetaData.conditional + queryTokens[j]
+                } else {
+                    queryMetaData.conditional = queryMetaData.conditional + " " + queryTokens[j]
+                }
             }
         }
     }
 
-    debugger
     return queryMetaData
-}
-
-function getStatementTokens(queryTokens, queryMetaData) {
-    queryMetaData.statement = queryTokens[0]
-    queryTokens = queryTokens.slice(1)
-
-    return [queryTokens, queryMetaData]
-}
-
-function getColumnTokens(queryTokens, queryMetaData) {
-    for (let i = 0; i < queryTokens.length; i++) {
-        if (queryTokens[i] !== "from") {
-            queryMetaData.columns.push(queryTokens[i])
-        } else {
-            queryTokens = queryTokens.slice(i+1)
-            break
-        }
-    }
-
-    return [queryTokens, queryMetaData]
-}
-
-function getFromTableToken(queryTokens, queryMetaData) {
-
-    return [queryTokens, queryMetaData]
 }

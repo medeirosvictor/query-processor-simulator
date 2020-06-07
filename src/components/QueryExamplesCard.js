@@ -28,6 +28,9 @@ const useStyles = makeStyles({
     },
     querytype: {
       fontSize: 17
+    },
+    example: {
+      marginBottom: 5
     }
 });
 
@@ -37,12 +40,12 @@ export default function QueryExamplesCard () {
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
-                <Typography variant="body2" component="p">
-                    <strong className={classes.querytype}>Table scan not tidy linear: </strong><span>select * from employee</span> <br />
-                    <strong className={classes.querytype}>Table scan tidy binary: </strong><span>select * from department</span><br />
-                    <strong className={classes.querytype}>Index seek: </strong><span>select name, salary from employee where salary = 5000</span><br />
-                    <strong className={classes.querytype}>Index scan: </strong><span>select name, salary from employee where salary > 5000</span><br />
-                    <strong className={classes.querytype}>Join No Hash: </strong>select employee.id, employee.salary, department.cod_dep from Employee join Department on Department.cod_dep=Employee.capacity<br />
+                <Typography variant="body2" component="p" className={classes.p}>
+                    <div className={classes.example}><strong className={classes.querytype}>Table scan not tidy linear: </strong><span>select * from employee</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Table scan tidy binary: </strong><span>select * from department</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Index seek: </strong><span>select name, salary from employee where salary = 5000</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Index scan: </strong><span>select name, salary from employee where salary > 5000</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Join No Hash: </strong>select employee.id, employee.salary, department.cod_dep from Employee join Department on Department.cod_dep=Employee.capacity</div>
                     join using hash <br />
                     merge-join if both tables are tidy on primary key <br />
                     hashjoin if join condition is equals between both tables
