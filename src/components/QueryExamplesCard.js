@@ -41,8 +41,8 @@ export default function QueryExamplesCard () {
         <Card className={classes.root}>
             <CardContent className={classes.content}>
                 <Typography variant="body2" component="p" className={classes.p}>
-                    <div className={classes.example}><strong className={classes.querytype}>Table scan not tidy linear: </strong><span>select * from employee</span></div>
-                    <div className={classes.example}><strong className={classes.querytype}>Table scan tidy binary: </strong><span>select * from department</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Table scan (linear search): </strong><span>select * from department</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Table scan ordered (binary search): </strong><span>select * from employee</span></div>
                     <div className={classes.example}><strong className={classes.querytype}>Index seek: </strong><span>select name, salary from employee where salary = 5000</span></div>
                     <div className={classes.example}><strong className={classes.querytype}>Index scan: </strong><span>select name, salary from employee where salary > 5000</span></div>
                     <div className={classes.example}><strong className={classes.querytype}>Join No Hash: </strong>select employee.id, employee.salary, department.cod_dep from Employee join Department on Department.cod_dep=Employee.capacity</div>

@@ -24,7 +24,8 @@ export function BuildOperatorGraph (queryMetaData) {
         position: {
             x: 50,
             y: 100
-        }
+        },
+        style: { background: 'rgb(227, 227, 247)', color: '#222', border: '1px solid #bbb', width: 180 }
     })
 
     if ('joinTable' in queryMetaData) {
@@ -35,38 +36,42 @@ export function BuildOperatorGraph (queryMetaData) {
             position: {
                 x: 250,
                 y: 100
-            }
+            },
+            style: { background: 'rgb(227, 227, 247)', color: '#222', border: '1px solid #bbb', width: 180 }
         })
     }
 
     //Get Select Operator
     nodes.push({
         id: (nodes.length).toString(),
-        data: {label: queryMetaData.columns[0] === '*' | queryMetaData.conditional === undefined ? queryMetaData.statement+" all": "select " + queryMetaData.conditional},
+        data: {label: queryMetaData.columns[0] === '*' | queryMetaData.conditional === undefined ? "σ all": "σ " + queryMetaData.conditional},
         position: {
             x: graphPositions[counter][0],
             y: graphPositions[counter][1]
-        }
+        },
+        style: { background: 'rgb(227, 227, 247)', color: '#222', border: '1px solid #bbb', width: 180 }
     })
     counter++
 
     if (queryMetaData.conditional === '') {
         nodes.push({
             id: (nodes.length).toString(),
-            data: {label: 'project all'},
+            data: {label: 'Π all'},
             position: {
                 x: graphPositions[counter][0],
                 y: graphPositions[counter][1]
-            }
+            },
+            style: { background: 'rgb(227, 227, 247)', color: '#222', border: '1px solid #bbb', width: 180 }
         })
     } else {
         nodes.push({
             id: (nodes.length).toString(),
-            data: {label: 'project ' + getColumnsString(queryMetaData.columns)},
+            data: {label: 'Π ' + getColumnsString(queryMetaData.columns)},
             position: {
                 x: graphPositions[counter][0],
                 y: graphPositions[counter][1]
-            }
+            },
+            style: { background: 'rgb(227, 227, 247)', color: '#222', border: '1px solid #bbb', width: 180 }
         })
     }
 

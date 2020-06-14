@@ -33,9 +33,9 @@ const HomePage = () => {
     <Container className={classes.root}>
         <QueryFormCard />
         <div className={classes.tablesContainer}>
-          <DepartmentsTable/>
+          {/* <DepartmentsTable/>
           <EmployeesTable/>
-          <DependentsTable/>
+          <DependentsTable/> */}
         </div>
     </Container>
   );
