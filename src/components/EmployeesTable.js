@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 export default function EmployeesTable() {
     const classes = useStyles()
-    const employeesTable = useSelector((state: any) => state.simulationState.tables[1].content)
+    const employeesTable = useSelector((state) => state.simulationState.tables[1].content)
 
     return (
         <TableContainer className={classes.table} component={Paper}>

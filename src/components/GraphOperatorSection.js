@@ -7,11 +7,11 @@ export default function GraphOperatorSection() {
     const simulationState = useSelector((state) => state.simulationState)
 
     const graphStyles = { 
-        width: '50%', 
+        width: '40%', 
         height: '550px', 
         backgroundColor: '#fff',
         borderColor: 'lightcoral',
-        margin: '60px'
+        margin: '20px'
     };
 
     if (isRunning) {

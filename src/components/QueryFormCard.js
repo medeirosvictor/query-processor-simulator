@@ -53,6 +53,7 @@ export default function QueryFormCard() {
 
     const [queryString, setQueryString] = useState("")
     const [queryErrorText, setQueryErrorText] = useState("")
+    const [res, setRes] = useState()
     const isRunning = useSelector((state) => state.simulationState.isRunning)
     let queryMetaData
 
@@ -62,6 +63,7 @@ export default function QueryFormCard() {
             queryMetaData = QueryParse(queryString)
             if (QueryTokenValidate(queryMetaData)) {
                 queryMetaData.elements = BuildOperatorGraph(queryMetaData)
+                queryMetaData.response = []
                 dispatch(LoadQueryMetaData(queryMetaData))
             } else {
                 setQueryErrorText('Query Invalid')
@@ -69,6 +71,28 @@ export default function QueryFormCard() {
         } else {
             setQueryErrorText('Query Invalid')
         }
+
+        fetch('http://localhost:8080/query', {
+          method: 'POST',
+          body: JSON.stringify({query: queryMetaData.query}),
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          mode: 'cors'
+        }).then(function (response) {
+          if (response.ok) {
+            console.log(response)
+            return response.json();
+          }
+          return Promise.reject(response);
+        }).then(function (data) {
+          console.log(data);
+          setRes(data)
+          queryMetaData.response = data
+          dispatch(LoadQueryMetaData(queryMetaData))
+        }).catch(function (error) {
+          console.warn('Something went wrong.', error);
+        })
     }
 
     const handleChange = (e) => {

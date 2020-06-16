@@ -32,11 +32,11 @@ const HomePage = () => {
   return (
     <Container className={classes.root}>
         <QueryFormCard />
-        <div className={classes.tablesContainer}>
+        {/* <div className={classes.tablesContainer}> */}
           {/* <DepartmentsTable/>
           <EmployeesTable/>
           <DependentsTable/> */}
-        </div>
+        {/* </div> */}
     </Container>
   );
 }

@@ -40,7 +40,7 @@ export default function QueryExamplesCard () {
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
-                <Typography variant="body2" component="p" className={classes.p}>
+                <Typography variant="body2" component="div" className={classes.p}>
                     <div className={classes.example}><strong className={classes.querytype}>Table scan (linear search): </strong><span>select * from department</span></div>
                     <div className={classes.example}><strong className={classes.querytype}>Table scan ordered (binary search): </strong><span>select * from employee</span></div>
                     <div className={classes.example}><strong className={classes.querytype}>Index seek: </strong><span>select name, salary from employee where salary = 5000</span></div>

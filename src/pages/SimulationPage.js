@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import GraphOperatorSection from '../components/GraphOperatorSection'
 import SimulationInfoCard from '../components/SimulationInfoCard'
+import ResultsTable from '../components/ResultsTable'
 
 const useStyles = makeStyles({
   root: {
     margin: '40px auto',
+    display: 'flex'
   },
   card: {
     maxWidth: 400,
@@ -33,34 +35,15 @@ const useStyles = makeStyles({
     marginTop: '2vh',
     padding: '5px'
   },
+  message: {
+    textAlign: 'center',
+    color: '#fff'
+  }
 });
 
 const SimulationPage = () => {
     const classes = useStyles();
     const simulationState = useSelector((state) => state.simulationState)
-
-    useEffect(() => {
-      // Atualiza o titulo do documento usando a API do browser
-      if(simulationState.isRunning) {
-        debugger
-        fetch('http://localhost:8080/query', {
-          method: 'POST',
-          body: simulationState,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-          }
-        }).then(function (response) {
-          if (response.ok) {
-            return response.json();
-          }
-          return Promise.reject(response);
-        }).then(function (data) {
-          console.log(data);
-        }).catch(function (error) {
-          console.warn('Something went wrong.', error);
-        });
-      }
-    });
 
     if (!simulationState.isRunning) {
         return (
@@ -69,9 +52,13 @@ const SimulationPage = () => {
     }
 
   return (
-    <Container className={classes.root}>
-        <SimulationInfoCard />
-        <GraphOperatorSection/>
+    <Container>
+      <SimulationInfoCard />
+      <div className={classes.message}>Results for Graph and Query</div>
+      <Container className={classes.root}>
+          <GraphOperatorSection/>
+          <ResultsTable table={simulationState.queryMetaData.response}/>
+      </Container>
     </Container>
   );
 }
