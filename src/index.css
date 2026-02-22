@@ -10,10 +10,11 @@ body {
 code {
   font-family: 'Roboto Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-  background: rgba(175, 85, 214, 0.15);
-  padding: 2px 6px;
+  background: rgba(175, 85, 214, 0.18);
+  padding: 2px 7px;
   border-radius: 4px;
-  font-size: 0.9em;
+  font-size: 0.88em;
+  color: #d79ef5;
 }
 
 *::-webkit-scrollbar {
@@ -28,4 +29,13 @@ code {
 *::-webkit-scrollbar-thumb {
   background: rgba(175, 85, 214, 0.4);
   border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(175, 85, 214, 0.6);
+}
+
+::selection {
+  background: rgba(175, 85, 214, 0.4);
+  color: #fff;
 }

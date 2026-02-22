@@ -1,20 +1,37 @@
 .App {
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
+  background: linear-gradient(160deg, #2d1f33 0%, #403545 40%, #352a3a 100%);
 }
 
 .App-header {
-  padding: 24px 0 8px;
+  padding: 32px 0 12px;
   text-align: center;
+  position: relative;
+}
+
+.App-header::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #af55d6, transparent);
+  margin: 16px auto 0;
+  border-radius: 2px;
 }
 
 .App-header h1 {
   margin: 0;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #d79ef5 0%, #af55d6 50%, #8a3fb5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .App-subtitle {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
   font-size: 15px;
-  margin-top: 4px;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
 }
