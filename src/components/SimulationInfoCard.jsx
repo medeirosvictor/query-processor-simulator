@@ -1,9 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { useSelector } from 'react-redux'
 import { Container, Typography } from '@material-ui/core'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import { useSimulation } from '../context/SimulationContext'
 
 const useStyles = makeStyles({
   root: {
@@ -18,14 +18,6 @@ const useStyles = makeStyles({
       textAlign: 'center',
       color: '#000'
   },
-  tablesContainer: {
-      display: 'flex',
-      flexWrap: 'wrap'
-  },
-  queryCardsContainer: {
-    display: 'flex',
-    justifyContent: 'space-around'
-  },
   content: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -36,7 +28,7 @@ const useStyles = makeStyles({
 
 const SimulationInfoCard = () => {
     const classes = useStyles()
-    const simulationState = useSelector((state: any) => state.simulationState)
+    const { simulation } = useSimulation()
 
     return (
         <Container className={classes.root}>
@@ -45,7 +37,7 @@ const SimulationInfoCard = () => {
                     <Typography className={classes.h2} variant="h2" component="h2" color="secondary">
                         Simulation running
                     </Typography>
-                    <strong>Query:</strong> {simulationState.queryMetaData.query}
+                    <strong>Query:</strong> {simulation.queryMetaData.query}
                 </CardContent>
             </Card>
         </Container>

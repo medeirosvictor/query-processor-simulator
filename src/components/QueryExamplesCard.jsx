@@ -41,14 +41,11 @@ export default function QueryExamplesCard () {
         <Card className={classes.root}>
             <CardContent className={classes.content}>
                 <Typography variant="body2" component="div" className={classes.p}>
-                    <div className={classes.example}><strong className={classes.querytype}>Table scan (linear search): </strong><span>select * from department</span></div>
-                    <div className={classes.example}><strong className={classes.querytype}>Table scan ordered (binary search): </strong><span>select * from employee</span></div>
-                    <div className={classes.example}><strong className={classes.querytype}>Index seek: </strong><span>select name, salary from employee where salary = 5000</span></div>
-                    <div className={classes.example}><strong className={classes.querytype}>Index scan: </strong><span>select name, salary from employee where salary > 5000</span></div>
-                    <div className={classes.example}><strong className={classes.querytype}>Join No Hash: </strong>select employee.id, employee.salary, department.cod_dep from Employee join Department on Department.cod_dep=Employee.capacity</div>
-                    join using hash <br />
-                    merge-join if both tables are tidy on primary key <br />
-                    hashjoin if join condition is equals between both tables
+                    <div className={classes.example}><strong className={classes.querytype}>Table scan: </strong><span>select * from department</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Full table scan: </strong><span>select * from employee</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Equality filter: </strong><span>select name, salario from employee where id = 1</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Range filter: </strong><span>select name, salario from employee where salario &gt; 9000</span></div>
+                    <div className={classes.example}><strong className={classes.querytype}>Join: </strong><span>select employee.id, employee.salario, department.cod_dep from employee join department on department.cod_dep=employee.capacity</span></div>
                 </Typography>
             </CardContent>
         </Card>

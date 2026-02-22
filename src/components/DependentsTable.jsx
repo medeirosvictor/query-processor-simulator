@@ -1,14 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import theme from '../theme';
+import React from 'react'
+import { makeStyles } from '@material-ui/core'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import theme from '../theme'
+import dependents from '../simulation_data/dependents.json'
 
 const useStyles = makeStyles({
     table: {
@@ -21,12 +21,11 @@ const useStyles = makeStyles({
     },
     headerCell: {
         color: theme.palette.common.white,
-    },
+    }
 })
 
-export default function DepartmentsTable() {
+export default function DependentsTable() {
     const classes = useStyles()
-    const departmentsTable = useSelector((state) => state.simulationState.tables[0].content)
 
     return (
         <TableContainer className={classes.table} component={Paper}>
@@ -34,16 +33,16 @@ export default function DepartmentsTable() {
                 <TableHead>
                     <TableRow className={classes.header}>
                         <TableCell className={classes.headerCell}>name</TableCell>
-                        <TableCell className={classes.headerCell}>cod_dep</TableCell>
+                        <TableCell className={classes.headerCell}>id_resp</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {departmentsTable.map((row) => (
-                    <TableRow key={row.name}>
+                {dependents.map((row, index) => (
+                    <TableRow key={`${row.id_resp}-${index}`}>
                         <TableCell component="th" scope="row">
                             {row.name}
                         </TableCell>
-                        <TableCell>{row.cod_dep}</TableCell>
+                        <TableCell>{row.id_resp}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

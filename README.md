@@ -1,68 +1,72 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Query Processor Simulator
 
-## Available Scripts
+A fully client-side interactive tool that simulates how a database query processor works. Enter SQL queries and see the relational algebra operator graph (σ selection, Π projection) visualized in real time, alongside query results executed against in-memory seed data. No backend required.
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+- **SQL Query Input** — supports `SELECT`, `WHERE`, and `JOIN` queries
+- **Operator Graph Visualization** — renders the query execution plan as an interactive node graph
+- **Client-side Query Engine** — executes queries against in-memory seed data (10K employees, 20 departments, 3K dependents)
+- **Results Table** — displays query results in a dynamic table
+- **Example Queries** — built-in examples for table scans, index seeks, index scans, and joins
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tech Stack
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- React 16 + Redux + React Router
+- Material UI v4
+- react-flow-renderer (operator graph)
+- Vite (build tool)
 
-### `yarn test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `yarn build`
+- Node.js (v16+)
+- pnpm
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Install & Run
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+# Install dependencies
+pnpm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start the dev server (http://localhost:3000)
+pnpm dev
 
-### `yarn eject`
+# Build for production
+pnpm build
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Preview the production build
+pnpm preview
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Run tests
+pnpm test
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Lint
+pnpm lint
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Example Queries
 
-## Learn More
+| Type | Query |
+|------|-------|
+| Table scan (linear) | `select * from department` |
+| Table scan (ordered) | `select * from employee` |
+| Index seek | `select name, salario from employee where salario = 5000` |
+| Index scan | `select name, salario from employee where salario > 5000` |
+| Join | `select employee.id, employee.salario, department.cod_dep from employee join department on department.cod_dep=employee.capacity` |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+src/
+├── actions/          # Redux actions
+├── components/       # React UI components
+├── helpers/          # Query parser, validator, graph builder, query engine
+├── pages/            # HomePage, SimulationPage
+├── reducers/         # Redux reducers
+├── simulation_data/  # Seed data (departments, employees, dependents)
+├── store/            # Redux store configuration
+├── main.jsx          # App entry point
+└── theme.js          # Material UI theme
+```

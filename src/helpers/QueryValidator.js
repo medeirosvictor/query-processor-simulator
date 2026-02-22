@@ -1,21 +1,16 @@
 export function QueryStringValidate(query) {
-    let validStatement = query.includes('select') || query.includes('SELECT') ? true : false
-
-    if (validStatement) {
-        return true
-    } else {
-        return false
-    }
+    if (!query || typeof query !== 'string') return false
+    const lower = query.toLowerCase()
+    return lower.includes('select')
 }
 
 export function QueryTokenValidate(queryMetaData) {
-    let validStatement = queryMetaData.statement === 'select' || queryMetaData.statement === 'SELECT' ? true : false
-    let validColumn = queryMetaData.columns.length > 0 ? true : false
-    let validTable = queryMetaData.fromTable !== '' ? true : false
+    if (!queryMetaData) return false
 
-    if (validStatement && validColumn && validTable) {
-        return true
-    } else {
-        return false
-    }
+    const statement = (queryMetaData.statement || '').toLowerCase()
+    const validStatement = statement === 'select'
+    const validColumn = Array.isArray(queryMetaData.columns) && queryMetaData.columns.length > 0
+    const validTable = typeof queryMetaData.fromTable === 'string' && queryMetaData.fromTable !== ''
+
+    return validStatement && validColumn && validTable
 }

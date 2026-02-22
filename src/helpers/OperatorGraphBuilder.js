@@ -1,9 +1,3 @@
-// const elements = [
-//     { id: '1', data: { label: 'Node 1' }, position: { x: 250, y: 5 } },
-//     { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 100 } },
-//     { id: 'e1-2', source: '1', target: '2', animated: true }
-//   ];
-
 const graphPositions = [
     [150, 200],
     [250, 300],
@@ -44,7 +38,7 @@ export function BuildOperatorGraph (queryMetaData) {
     //Get Select Operator
     nodes.push({
         id: (nodes.length).toString(),
-        data: {label: queryMetaData.columns[0] === '*' | queryMetaData.conditional === undefined ? "σ all": "σ " + queryMetaData.conditional},
+        data: {label: queryMetaData.columns[0] === '*' || queryMetaData.conditional === undefined ? "σ all": "σ " + queryMetaData.conditional},
         position: {
             x: graphPositions[counter][0],
             y: graphPositions[counter][1]

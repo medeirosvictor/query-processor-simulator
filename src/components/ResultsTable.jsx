@@ -33,7 +33,7 @@ export default function ResultsTable(props) {
 
             const HCells = keys.map(function(key) {
                     return (
-                        <TableCell component="th" scope="row" className={classes.headerCell}>
+                        <TableCell key={key} component="th" scope="row" className={classes.headerCell}>
                             {key}
                         </TableCell>
                     )
@@ -43,27 +43,27 @@ export default function ResultsTable(props) {
                 if(index < 1000) {
                     const b = keys.map(function(key) {
                         return (
-                            <TableCell component="th" scope="row">
+                            <TableCell key={`${index}-${key}`} component="th" scope="row">
                                 {row[key]}
                             </TableCell>
                         )
                     })
 
                     return (
-                        <TableRow key={Math.random() + "carambaaa"}>
+                        <TableRow key={`row-${index}`}>
                             {b}
                         </TableRow>
                     )
                 }
+                return null
             })
 
 
-            debugger
             return (
             <TableContainer className={classes.table} component={Paper}>
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
-                        <TableRow key={Math.random() + "carambaaa"} className={classes.header}>
+                        <TableRow className={classes.header}>
                             {
                              HCells
                             }
@@ -78,8 +78,8 @@ export default function ResultsTable(props) {
             )
     } else {
         return (
-            <div>
-                ayy nothign ehre mat
+            <div style={{ textAlign: 'center', color: '#fff', padding: '20px' }}>
+                No results found
             </div>
         )
     }

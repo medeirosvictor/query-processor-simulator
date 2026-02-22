@@ -1,0 +1,82 @@
+[
+  {
+    "cod_dep": 101,
+    "name": "Business Development"
+  },
+  {
+    "cod_dep": 102,
+    "name": "Support"
+  },
+  {
+    "cod_dep": 103,
+    "name": "Product Management"
+  },
+  {
+    "cod_dep": 104,
+    "name": "Human Resources"
+  },
+  {
+    "cod_dep": 105,
+    "name": "Marketing"
+  },
+  {
+    "cod_dep": 106,
+    "name": "Services"
+  },
+  {
+    "cod_dep": 107,
+    "name": "Training"
+  },
+  {
+    "cod_dep": 108,
+    "name": "Accounting"
+  },
+  {
+    "cod_dep": 109,
+    "name": "Sales"
+  },
+  {
+    "cod_dep": 110,
+    "name": "Research and Development"
+  },
+  {
+    "cod_dep": 111,
+    "name": "Legal"
+  },
+  {
+    "cod_dep": 112,
+    "name": "Engineering"
+  },
+  {
+    "cod_dep": 113,
+    "name": "Web Development"
+  },
+  {
+    "cod_dep": 114,
+    "name": "Artifical Inteligence"
+  },
+  {
+    "cod_dep": 115,
+    "name": "Blockchain"
+  },
+  {
+    "cod_dep": 116,
+    "name": "IoT"
+  },
+  {
+    "cod_dep": 117,
+    "name": "Cloud"
+  },
+  {
+    "cod_dep": 118,
+    "name": "Customer Journey"
+  },
+  {
+    "cod_dep": 119,
+    "name": "Design"
+  },
+  {
+    "cod_dep": 120,
+    "name": "Travel"
+  }
+]
